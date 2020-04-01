@@ -3,12 +3,12 @@ import redis
 
 def map_vals(vals: list, score: int):
 
-    return {val: score for val in vals}
+    return {f'{val}:{score}': score for val in vals}
 
 
 class Storage:
 
-    _links_key = "urls"
+    _links_key = "links"
 
     def __init__(self, host: str):
 
@@ -25,3 +25,7 @@ class Storage:
         links = [link.decode('utf-8') for link in links]
 
         return links
+
+    def clear_all(self):
+
+        self._db.flushdb()

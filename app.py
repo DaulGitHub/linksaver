@@ -21,7 +21,17 @@ def before_request():
 
 def extract_domains(links: list) -> list:
 
-    return [urlparse(link).hostname for link in links]
+    domains = []
+    for link in links:
+        domain = urlparse(link).hostname
+        if domain is None:
+            # delete timestamp, if link contain only domain, he not parsed correct with urlparse
+            link = link[:link.index(':')]
+            domains.append(link)
+        else:
+            domains.append(domain)
+
+    return domains
 
 
 @app.route('/visited_links', methods=['POST'])
@@ -43,6 +53,6 @@ def get_domains():
     time_to = request.args.get('to')
 
     links = g.storage.get_links(int(time_from), int(time_to))
-    domains = extract_domains(links)
+    domains = list(set(extract_domains(links)))
 
     return jsonify({"domains": domains, "status": "ok"})
