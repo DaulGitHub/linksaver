@@ -26,8 +26,12 @@ def extract_domains(links: list) -> list:
         domain = urlparse(link).hostname
         if domain is None:
             # delete timestamp, if link contain only domain, he not parsed correct with urlparse
-            link = link[:link.index(':')]
-            domains.append(link)
+            try:
+                link = link[:link.index(':')]
+            except ValueError:
+                pass
+            finally:
+                domains.append(link)
         else:
             domains.append(domain)
 
