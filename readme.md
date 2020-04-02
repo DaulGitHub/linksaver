@@ -1,4 +1,4 @@
-###Links saver
+### Links saver
 1. in stall redis database<br>
 2. activate virtualenv
 3. install requirements.txt<br>
@@ -6,7 +6,7 @@
 4. run application<br>
 <code>flask run</code>
 
-#####test
+##### test
 manual:<br>
  please open console<br>
 <code>$ curl --header "Content-Type: application/json"   --request POST   --data '{ "links": ["https://ya.ru", "https://ya.ru?q=123", "funbox.ru", "https://stackoverflow.com/questions/11828270/how-to-exit-the-vim-editor"] }' http://localhost:5000/visited_links</code>
