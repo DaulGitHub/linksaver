@@ -30,7 +30,12 @@ def fill_db_links_set():
     storage.save_links(links1, timestamp1)
     storage.save_links(links2, timestamp2)
     storage.save_links(links3, timestamp3)
-    print("fill")
     yield
     storage.clear_all()
-    print("clear")
+
+
+@pytest.fixture(scope='function')
+def connect_db():
+    storage = Storage(app.config['DB_HOST'])
+    yield storage
+    storage.clear_all()
